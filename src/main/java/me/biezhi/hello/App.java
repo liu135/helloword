@@ -1,6 +1,7 @@
 package me.biezhi.hello;
 
 import blade.kit.json.JsonObject;
+import static com.blade.Blade.*;
 
 import com.blade.Blade;
 import com.blade.route.RouteHandler;
@@ -13,7 +14,8 @@ import com.blade.web.http.Response;
 public class App {
 	
 	public static void main(String[] args) {
-		Blade blade = Blade.me();
+		
+		Blade blade = me();
 		
 		/**
 		 * JDK1.6
