@@ -2,43 +2,6 @@
 
 This is `blade` framework of an initial project, running is very simple, experience the charm of it!
 
-```java
-/**
- * Hello Blade!
- */
-public class App extends Bootstrap {
-
-	@Override
-	public void init() {}
-	
-	public static void main(String[] args) throws Exception {
-		Blade blade = Blade.me();
-		
-		/**
-		 * JDK1.6
-		 */
-		blade.get("/", new RouteHandler() {
-			public void handle(Request request, Response response) {
-				response.html("<h1>Hello Blade！</h1>");
-			}
-		});
-		
-		// java8
-		blade.get("/hello", (req,res) -> {
-			JsonObject jsonObject = new JsonObject();
-			jsonObject.add("name", "biezhi");
-			jsonObject.add("blog", "https://biezhi.me");
-			res.json(jsonObject.toString());
-		});
-		
-		blade.before("/.*", (req,res) -> {
-			System.out.println("before");
-		});
-		
-		blade.listen(9001).start();
-	}
-}
-```
 ### Run
 
 ```sh
@@ -50,26 +13,41 @@ Import Project to your IDE. Run `main` method.
 ### Console
 
 ```bash
-2015-10-10 16:24:49,677 DEBUG [main] com.blade.route.impl.DefaultRouteMatcher | Add Route：GET:/
-2015-10-10 16:24:49,732 DEBUG [main] com.blade.route.impl.DefaultRouteMatcher | Add Route：GET:/hello
-2015-10-10 16:24:49.804:INFO::main: Logging initialized @340ms
-2015-10-10 16:24:49.921:INFO:oejs.Server:main: jetty-9.3.4.v20151007
-2015-10-10 16:24:49,987 INFO [main] com.blade.ioc.impl.DefaultContainer | register object：me.biezhi.hello.App=me.biezhi.hello.App@f5f2bb7
-2015-10-10 16:24:49,987 INFO [main] com.blade.CoreFilter | blade init complete!
-2015-10-10 16:24:49.990:INFO:oejsh.ContextHandler:main: Started o.e.j.s.ServletContextHandler@25618e91{/,file:///C:/Users/renqi/AppData/Local/Temp/,AVAILABLE}
-2015-10-10 16:24:50.027:INFO:oejs.ServerConnector:main: Started ServerConnector@668d9470{HTTP/1.1,[http/1.1]}{0.0.0.0:9001}
-2015-10-10 16:24:50.028:INFO:oejs.Server:main: Started @566ms
+[main] INFO com.blade.route.Routers - Add Route: GET	/
+[main] INFO com.blade.route.Routers - Add Route: GET	/hello
+[main] INFO com.blade.route.Routers - Add Route: GET	/show
+[main] INFO com.blade.route.Routers - Add Interceptor: BEFORE	/.*
+[main] INFO org.eclipse.jetty.util.log - Logging initialized @393ms
+[main] INFO org.eclipse.jetty.server.Server - jetty-9.2.12.v20150709
+[main] INFO com.blade.web.DispatcherServlet - DispatcherServlet start ...
+[main] INFO com.blade.web.DispatcherServlet - jdk.version = 1.8.0_60
+[main] INFO com.blade.web.DispatcherServlet - user.dir = E:\github\hello
+[main] INFO com.blade.web.DispatcherServlet - java.io.tmpdir = C:\Users\renqi\AppData\Local\Temp\
+[main] INFO com.blade.web.DispatcherServlet - user.timezone = 
+[main] INFO com.blade.web.DispatcherServlet - file.encoding = utf-8
+[main] INFO com.blade.web.DispatcherServlet - blade.webroot = E:\github\hello\target\classes
+[main] INFO com.blade.web.DispatcherServlet - blade.isDev = false
+[main] INFO blade.kit.config.adapter.PropConfigAdapter - Loading config file [classpath:/default.properties]
+[main] INFO com.blade.ioc.IocApplication - Add Object: [com.blade.web.DispatcherServlet$1@3b6eb2ec]
+[main] INFO com.blade.web.DispatcherServlet - DispatcherServlet initialize successfully, Time elapsed: 20 ms.
+	 __, _,   _, __, __,
+	 |_) |   /_\ | \ |_
+	 |_) | , | | |_/ |
+	 ~   ~~~ ~ ~ ~   ~~~
+	 :: Blade :: (v1.6.0-alpha)
 
-2015-10-10 16:25:07,540 DEBUG [qtp193064360-17] com.blade.FilterHandler | Request : GET	/
-2015-10-10 16:24:58,709 DEBUG [qtp193064360-15] com.blade.FilterHandler | Request : GET	/hello
+[main] INFO org.eclipse.jetty.server.handler.ContextHandler - Started o.e.j.s.ServletContextHandler@1e643faf{/,file:/E:/github/hello/target/classes/,AVAILABLE}
+[main] INFO org.eclipse.jetty.server.ServerConnector - Started ServerConnector@7f690630{HTTP/1.1}{0.0.0.0:9001}
+[main] INFO org.eclipse.jetty.server.Server - Started @704ms
+[main] INFO com.blade.server.Server - Blade Server Listen on http://127.0.0.1:9001
+
 ```
 
 ### Web
 
-[http://localhost:9001/](http://localhost:9001/)
+**Access the URL:**
 
-![](https://i.imgur.com/WYyTRrD.png)
+- http://127.0.0.1:9001/
+- http://127.0.0.1:9001/hello
+- http://127.0.0.1:9001/show
 
-[http://localhost:9001/hello](http://localhost:9001/hello)
-
-![](https://i.imgur.com/2V60Eh3.png)
