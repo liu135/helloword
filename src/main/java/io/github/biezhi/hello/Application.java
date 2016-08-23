@@ -1,8 +1,9 @@
-package me.biezhi.hello;
+package io.github.biezhi.hello;
 
 import static com.blade.Blade.me;
 
 import com.blade.Blade;
+import com.blade.embedd.EmbedJettyServer;
 import com.blade.route.RouteHandler;
 import com.blade.web.http.Request;
 import com.blade.web.http.Response;
@@ -15,13 +16,14 @@ import blade.kit.logging.LoggerFactory;
 /**
  * Hello Blade!
  */
-public class App {
+public class Application {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(App.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(Application.class);
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		
 		Blade blade = me();
+		blade.staticFolder("static");
 		
 		blade.viewEngin(new VelocityTemplateEngine());
 		
@@ -50,8 +52,8 @@ public class App {
 		blade.before("/.*", (req, res) -> {
 			LOGGER.info("before ...");
 		});
-
-		blade.listen(9001).start();
+		
+		blade.start(EmbedJettyServer.class);
 		
 	}
 

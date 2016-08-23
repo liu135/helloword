@@ -9,13 +9,13 @@
 
 	<name>hello</name>
 	<url>http://maven.apache.org</url>
-	
+
 	<properties>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
-
+	
 	<repositories>
 		<repository>
 			<id>oss-snapshots</id>
@@ -28,90 +28,66 @@
 			</snapshots>
 		</repository>
 	</repositories>
-	
+
 	<dependencies>
 		<dependency>
 			<groupId>com.bladejava</groupId>
 			<artifactId>blade-core</artifactId>
-			<version>1.6.0M2</version>
+			<version>1.6.3</version>
+		</dependency>
+		<dependency>
+			<groupId>com.bladejava</groupId>
+			<artifactId>blade-embed-jetty</artifactId>
+			<version>0.0.1</version>
 		</dependency>
 		<dependency>
 			<groupId>com.bladejava</groupId>
 			<artifactId>blade-template-velocity</artifactId>
 			<version>0.0.2</version>
 		</dependency>
-		<dependency>
-			<groupId>com.bladejava</groupId>
-			<artifactId>blade-startup</artifactId>
-			<version>1.0.1</version>
-		</dependency>
-		
 	</dependencies>
 
 	<build>
-
 		<finalName>${artifactId}-${version}</finalName>
-		
-		<resources>  
-	        <resource>  
-	            <directory>src/main/java</directory>  
-	            <includes>  
-	                <include>**/*.java</include>  
-	                <include>**/*.vm</include>  
-	                <include>**/*.png</include>  
-	            </includes>  
-	            <filtering>false</filtering>  
-	        </resource>  
-	    </resources>
-		
-		<plugins>
-			<plugin>
-			  <!-- mvn clean compile assembly:single -->
-              <artifactId>maven-assembly-plugin</artifactId>
-              <configuration>
-              	  
-                  <archive>
-                      <manifest>
-                          <addClasspath>true</addClasspath>
-                          <mainClass>me.biezhi.hello.App</mainClass>
-                      </manifest>
-                  </archive>
-                  
-                  <descriptorRefs>
-                      <descriptorRef>jar-with-dependencies</descriptorRef>
-                  </descriptorRefs>
+		<resources>
+			<resource>
+				<directory>src/main/java</directory>
+				<includes>
+					<include>**/*.java</include>
+				</includes>
+				<filtering>false</filtering>
+			</resource>
+			<resource>
+				<directory>src/main/resources</directory>
+				<includes>
+					<include>**/*.*</include>
+				</includes>
+				<filtering>false</filtering>
+			</resource>
+		</resources>
 
-                  <appendAssemblyId>false</appendAssemblyId>
-                  
-              </configuration>
-              <executions>
-                  <execution>
-                      <id>make-my-jar-with-dependencies</id>
-                      <phase>package</phase>
-                      <goals>
-                          <goal>single</goal>
-                      </goals>
-                  </execution>
-              </executions>
-          </plugin>
-			<!--
+		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-shade-plugin</artifactId>
+				<version>2.4.3</version>
 				<executions>
 					<execution>
 						<phase>package</phase>
 						<goals>
 							<goal>shade</goal>
 						</goals>
+						<configuration>
+							<transformers>
+								<transformer
+									implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+									<mainClass>io.github.biezhi.hello.Application</mainClass>
+								</transformer>
+							</transformers>
+						</configuration>
 					</execution>
 				</executions>
-				<configuration>
-					<finalName>uber-${artifactId}-${version}</finalName>
-				</configuration>
 			</plugin>
-			
-			-->
 		</plugins>
 	</build>
 
