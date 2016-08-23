@@ -34,12 +34,12 @@ Import Project to your IDE. Run `main` method.
 	 |_) |   /_\ | \ |_
 	 |_) | , | | |_/ |
 	 ~   ~~~ ~ ~ ~   ~~~
-	 :: Blade :: (v1.6.0-alpha)
+	 :: Blade :: (v1.6.3)
 
 [main] INFO org.eclipse.jetty.server.handler.ContextHandler - Started o.e.j.s.ServletContextHandler@1e643faf{/,file:/E:/github/hello/target/classes/,AVAILABLE}
-[main] INFO org.eclipse.jetty.server.ServerConnector - Started ServerConnector@7f690630{HTTP/1.1}{0.0.0.0:9001}
+[main] INFO org.eclipse.jetty.server.ServerConnector - Started ServerConnector@7f690630{HTTP/1.1}{0.0.0.0:9000}
 [main] INFO org.eclipse.jetty.server.Server - Started @704ms
-[main] INFO com.blade.server.Server - Blade Server Listen on http://127.0.0.1:9001
+[main] INFO com.blade.server.Server - Blade Server Listen on 0.0.0.0:9000
 
 ```
 
@@ -47,7 +47,7 @@ Import Project to your IDE. Run `main` method.
 
 **Access the URL:**
 
-- http://127.0.0.1:9001/
+- http://127.0.0.1:9000/
 - http://127.0.0.1:9001/hello
 - http://127.0.0.1:9001/show
 
