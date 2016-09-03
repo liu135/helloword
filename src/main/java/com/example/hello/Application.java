@@ -9,9 +9,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.blade.embedd.EmbedJettyServer;
-import com.blade.route.RouteHandler;
-import com.blade.web.http.Request;
-import com.blade.web.http.Response;
+import com.blade.mvc.http.Request;
+import com.blade.mvc.http.Response;
+import com.blade.mvc.route.RouteHandler;
+import com.blade.mvc.view.ViewSettings;
+import com.blade.mvc.view.template.VelocityTemplateEngine;
 
 /**
  * Hello Blade!
@@ -21,11 +23,16 @@ public class Application {
 	private static final Logger LOGGER = LoggerFactory.getLogger(Application.class);
 
 	public static void main(String[] args) throws Exception {
-
-		// jdk6
+		
+		ViewSettings.$().templateEngine(new VelocityTemplateEngine());
+		
 		$().get("/", new RouteHandler() {
 			public void handle(Request request, Response response) {
 				response.html("<h1>Hello Blade！</h1>");
+			}
+		}).get("/hello", new RouteHandler() {
+			public void handle(Request request, Response response) {
+				response.render("hello.vm");
 			}
 		}).get("/users", new RouteHandler() {
 			public void handle(Request request, Response response) {
