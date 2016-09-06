@@ -8,6 +8,8 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.blade.banner.BannerFont;
+import com.blade.banner.BannerStarter;
 import com.blade.embedd.EmbedJettyServer;
 import com.blade.mvc.http.Request;
 import com.blade.mvc.http.Response;
@@ -23,6 +25,9 @@ public class Application {
 	private static final Logger LOGGER = LoggerFactory.getLogger(Application.class);
 
 	public static void main(String[] args) throws Exception {
+		
+		// set custom banner
+		BannerStarter.banner(BannerFont.load().asAscii("Hello"));
 		
 		ViewSettings.$().templateEngine(new VelocityTemplateEngine());
 		
