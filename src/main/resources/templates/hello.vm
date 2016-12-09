@@ -6,7 +6,7 @@
 </head>
 <body>
 <h1>Hello Blade</h1>
-
+${name}
 <img src="/static/img/xiaoxin.jpg" />
 </body>
 </html>

@@ -1,21 +1,18 @@
 package com.example.hello;
 
-import static com.blade.Blade.$;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.blade.banner.BannerFont;
-import com.blade.banner.BannerStarter;
 import com.blade.embedd.EmbedJettyServer;
 import com.blade.mvc.http.Request;
 import com.blade.mvc.http.Response;
 import com.blade.mvc.route.RouteHandler;
 import com.blade.mvc.view.ViewSettings;
 import com.blade.mvc.view.template.VelocityTemplateEngine;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static com.blade.Blade.$;
 
 /**
  * Hello Blade!
@@ -25,10 +22,7 @@ public class Application {
 	private static final Logger LOGGER = LoggerFactory.getLogger(Application.class);
 
 	public static void main(String[] args) throws Exception {
-		
-		// set custom banner
-		BannerStarter.banner(BannerFont.load().asAscii("Hello"));
-		
+
 		ViewSettings.$().templateEngine(new VelocityTemplateEngine());
 		
 		$().get("/", new RouteHandler() {
@@ -37,6 +31,7 @@ public class Application {
 			}
 		}).get("/hello", new RouteHandler() {
 			public void handle(Request request, Response response) {
+				request.attribute("name", "jack");
 				response.render("hello.vm");
 			}
 		}).get("/users", new RouteHandler() {
